@@ -1,21 +1,24 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
+import { Canvas } from "./core/Canvas";
+import { GameLoop } from "./core/GameLoop";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const canvas = new Canvas(800, 600)
+const ctx = canvas.getContext();
+
+let position = {
+    x: 100,
+    y: 100
+}
+
+const update = (delta: number) => {
+    position.x += 10 * delta
+}
+
+const render = () => {
+    canvas.clear();
+
+    ctx.fillStyle= "red"
+    ctx.fillRect(position.x, position.y, 50, 50)
+}
+
+const loop = new GameLoop(update, render)
+loop.start()
