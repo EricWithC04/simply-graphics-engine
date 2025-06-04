@@ -5,9 +5,13 @@ import { PositionComponent } from "./entities/components/PositionComponent";
 import { RenderRectComponent } from "./entities/components/RenderRectComponent";
 import { VelocityComponent } from "./entities/components/VelocityComponent";
 import { KeyboardInputComponent } from "./entities/components/KeyboardInputComponent";
+import { ColliderComponent } from "./entities/components/ColliderComponent";
+import { CollisionSystem } from "./systems/CollisionSystem";
 
 const canvas = new Canvas(800, 600)
 const ctx = canvas.getContext();
+
+const collisionSystem = new CollisionSystem()
 
 const player = new Entity()
 const position = new PositionComponent(100, 100)
@@ -15,21 +19,28 @@ const renderer = new RenderRectComponent(position, 50, 50, "red")
 const velocity = new VelocityComponent(position)
 const input = new KeyboardInputComponent(velocity)
 
-// const player2 = new Entity()
-// const position2 = new PositionComponent(100, 300)
-// const renderer2 = new RenderRectComponent(position2, 50, 50, "blue")
+const playerCollider = new ColliderComponent(position, 50, 50)
+collisionSystem.addCollider(playerCollider)
 
+const obstacle = new Entity()
+const obstaclePosition = new PositionComponent(100, 300)
+const obstacleRenderer = new RenderRectComponent(obstaclePosition, 50, 50, "blue")
+const obstacleCollider = new ColliderComponent(obstaclePosition, 50, 50)
+
+collisionSystem.addCollider(obstacleCollider)
 player
     .addComponent(position)
     .addComponent(velocity)
     .addComponent(input)
     .addComponent(renderer)
+    .addComponent(playerCollider)
 
-// player2
-//     .addComponent(position2)
-//     .addComponent(renderer2)
+obstacle
+    .addComponent(obstaclePosition)
+    .addComponent(obstacleRenderer)
+    .addComponent(obstacleCollider)
 
-const entities: Entity[] = [player/* , player2 */]
+const entities: Entity[] = [player, obstacle]
 
 const update = (delta: number) => {
     entities.forEach((e) => {
@@ -43,6 +54,8 @@ const render = () => {
     entities.forEach((e) => {
         e.render(ctx)
     })
+
+    collisionSystem.update()
 }
 
 const loop = new GameLoop(update, render)

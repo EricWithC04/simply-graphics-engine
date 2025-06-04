@@ -16,6 +16,10 @@ export class ColliderComponent {
         }
     }
 
+    update(delta: number) {
+        
+    }
+
     isCollidingWith(other: ColliderComponent): boolean {
         const a = this.bounds
         const b = other.bounds
