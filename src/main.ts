@@ -1,23 +1,28 @@
 import { Canvas } from "./core/Canvas";
 import { GameLoop } from "./core/GameLoop";
+import { Entity } from "./entities";
+import { PositionComponent } from "./entities/components/PositionComponent";
+import { RenderRectComponent } from "./entities/components/RenderRectComponent";
 
 const canvas = new Canvas(800, 600)
 const ctx = canvas.getContext();
 
-let position = {
-    x: 100,
-    y: 100
-}
+const player = new Entity()
+const position = new PositionComponent(100, 100)
+const renderer = new RenderRectComponent(position, 50, 50, "red")
+
+player
+    .addComponent(position)
+    .addComponent(renderer)
 
 const update = (delta: number) => {
-    position.x += 10 * delta
+    position.update(delta);
 }
 
 const render = () => {
     canvas.clear();
 
-    ctx.fillStyle= "red"
-    ctx.fillRect(position.x, position.y, 50, 50)
+    player.render(ctx);
 }
 
 const loop = new GameLoop(update, render)

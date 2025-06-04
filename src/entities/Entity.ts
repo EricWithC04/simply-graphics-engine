@@ -1,4 +1,4 @@
-type Component = {
+interface Component {
     update?: (delta: number) => void
     render?: (ctx: CanvasRenderingContext2D) => void
 }
