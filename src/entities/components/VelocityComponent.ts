@@ -3,8 +3,8 @@ import { PositionComponent } from "./PositionComponent";
 export class VelocityComponent {
     constructor(
         private position: PositionComponent,
-        public vx: number, 
-        public vy: number
+        public vx: number = 0, 
+        public vy: number = 0
     ) {}
 
     update(delta: number): void {

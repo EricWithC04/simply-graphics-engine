@@ -3,6 +3,8 @@ import { GameLoop } from "./core/GameLoop";
 import { Entity } from "./entities";
 import { PositionComponent } from "./entities/components/PositionComponent";
 import { RenderRectComponent } from "./entities/components/RenderRectComponent";
+import { VelocityComponent } from "./entities/components/VelocityComponent";
+import { KeyboardInputComponent } from "./entities/components/KeyboardInputComponent";
 
 const canvas = new Canvas(800, 600)
 const ctx = canvas.getContext();
@@ -10,20 +12,24 @@ const ctx = canvas.getContext();
 const player = new Entity()
 const position = new PositionComponent(100, 100)
 const renderer = new RenderRectComponent(position, 50, 50, "red")
+const velocity = new VelocityComponent(position)
+const input = new KeyboardInputComponent(velocity)
 
-const player2 = new Entity()
-const position2 = new PositionComponent(100, 300)
-const renderer2 = new RenderRectComponent(position2, 50, 50, "blue")
+// const player2 = new Entity()
+// const position2 = new PositionComponent(100, 300)
+// const renderer2 = new RenderRectComponent(position2, 50, 50, "blue")
 
 player
     .addComponent(position)
+    .addComponent(velocity)
+    .addComponent(input)
     .addComponent(renderer)
 
-player2
-    .addComponent(position2)
-    .addComponent(renderer2)
+// player2
+//     .addComponent(position2)
+//     .addComponent(renderer2)
 
-const entities: Entity[] = [player, player2]
+const entities: Entity[] = [player/* , player2 */]
 
 const update = (delta: number) => {
     entities.forEach((e) => {
@@ -34,8 +40,9 @@ const update = (delta: number) => {
 const render = () => {
     canvas.clear();
 
-    player.render(ctx);
-    player2.render(ctx)
+    entities.forEach((e) => {
+        e.render(ctx)
+    })
 }
 
 const loop = new GameLoop(update, render)
