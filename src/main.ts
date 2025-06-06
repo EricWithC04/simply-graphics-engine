@@ -2,8 +2,10 @@ import { Canvas } from "./core/Canvas";
 import { GameLoop } from "./core/GameLoop";
 import { Entity } from "./entities";
 
+import { SceneManager } from "./scene/SceneManager";
+import { GameScene } from "./scene/GameScene";
+
 import { PositionComponent } from "./entities/components/PositionComponent";
-import { RenderRectComponent } from "./entities/components/RenderRectComponent";
 import { VelocityComponent } from "./entities/components/VelocityComponent";
 import { KeyboardInputComponent } from "./entities/components/KeyboardInputComponent";
 import { ColliderComponent } from "./entities/components/ColliderComponent";
@@ -15,6 +17,7 @@ import { AssetLoader } from "./assets/AssetLoader";
 
 const canvas = new Canvas(800, 600)
 const ctx = canvas.getContext();
+const sceneManager = new SceneManager()
 
 const collisionSystem = new CollisionSystem()
 
@@ -25,14 +28,14 @@ const velocity = new VelocityComponent(position)
 const input = new KeyboardInputComponent(velocity)
 
 const playerCollider = new ColliderComponent(position, 50, 50)
-collisionSystem.addCollider(playerCollider)
+collisionSystem.addCollider(playerCollider);
 
-const obstacle = new Entity()
-const obstaclePosition = new PositionComponent(100, 300)
-const obstacleRenderer = new RenderRectComponent(obstaclePosition, 50, 50, "blue")
-const obstacleCollider = new ColliderComponent(obstaclePosition, 50, 50)
+// const obstacle = new Entity()
+// const obstaclePosition = new PositionComponent(100, 300)
+// const obstacleRenderer = new RenderRectComponent(obstaclePosition, 50, 50, "blue")
+// const obstacleCollider = new ColliderComponent(obstaclePosition, 50, 50)
 
-collisionSystem.addCollider(obstacleCollider);
+// collisionSystem.addCollider(obstacleCollider);
 
 (async () => {
     const playerImage = await AssetLoader.loadImage("./tests/character_test_image.png")
@@ -47,28 +50,37 @@ collisionSystem.addCollider(obstacleCollider);
         .addComponent(playerCollider)
 })()
 
-obstacle
-    .addComponent(obstaclePosition)
-    .addComponent(obstacleRenderer)
-    .addComponent(obstacleCollider)
+// obstacle
+//     .addComponent(obstaclePosition)
+//     .addComponent(obstacleRenderer)
+//     .addComponent(obstacleCollider)
 
-const entities: Entity[] = [player, obstacle]
+// const entities: Entity[] = [player, obstacle]
 
 const update = (delta: number) => {
-    entities.forEach((e) => {
-        e.update(delta);
-    })
+    // entities.forEach((e) => {
+    //     e.update(delta);
+    // })
+    sceneManager.update(delta)
 }
 
 const render = () => {
     canvas.clear();
 
-    entities.forEach((e) => {
-        e.render(ctx)
-    })
+    // entities.forEach((e) => {
+    //     e.render(ctx)
+    // })
+    sceneManager.render(ctx)
 
     collisionSystem.update()
-}
+};
+
+(async () => {
+    const playerImage = await AssetLoader.loadImage("./tests/character_test_image.png")
+    const gameScene = new GameScene(playerImage)
+
+    sceneManager.changeScene(gameScene)
+})()
 
 const loop = new GameLoop(update, render)
 loop.start()
