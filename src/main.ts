@@ -2,8 +2,8 @@ import { Canvas } from "./core/Canvas";
 import { GameLoop } from "./core/GameLoop";
 import { Entity } from "./entities";
 
-import { SceneManager } from "./scene/SceneManager";
-import { GameScene } from "./scene/GameScene";
+import { SceneManager } from "./scenes/SceneManager";
+import { GameScene } from "./scenes/GameScene";
 
 import { PositionComponent } from "./entities/components/PositionComponent";
 import { VelocityComponent } from "./entities/components/VelocityComponent";
