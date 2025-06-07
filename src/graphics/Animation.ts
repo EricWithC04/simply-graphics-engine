@@ -17,7 +17,7 @@ export class Animation {
         if (this.elapsedTime >= this.frameDuration) {
             this.elapsedTime = 0
             this.currentFrameIndex++
-            if (this.currentFrameIndex >= this.frameIndices.length) {
+            if (this.currentFrameIndex >= this.frameIndices.length - 1) {
                 this.currentFrameIndex = this.loop ? 0 : this.frameIndices.length - 1
             }
         }

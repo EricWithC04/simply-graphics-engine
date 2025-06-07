@@ -76,8 +76,9 @@ const render = () => {
 };
 
 (async () => {
-    const playerImage = await AssetLoader.loadImage("./tests/character_test_image.png")
-    const gameScene = new GameScene(playerImage)
+    // const playerImage = await AssetLoader.loadImage("./tests/character_test_image.png")
+    const playerSpriteSheet = await AssetLoader.loadImage("./tests/test-sprite-sheet.jpg")
+    const gameScene = new GameScene(playerSpriteSheet)
 
     sceneManager.changeScene(gameScene)
 })()
