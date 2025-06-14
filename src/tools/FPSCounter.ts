@@ -15,7 +15,7 @@ export class FPSCounter {
     }
 
     render(ctx: CanvasRenderingContext2D) {
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "black";
         ctx.font = "14px monospace";
         ctx.fillText(`FPS: ${this.fps}`, 10, 20)
     }
