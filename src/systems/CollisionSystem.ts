@@ -7,6 +7,10 @@ export class CollisionSystem {
         this.colliders.push(collider);
     }
 
+    renderDebug(ctx: CanvasRenderingContext2D) {
+        this.colliders.forEach(collider => collider.renderDebug(ctx))
+    }
+
     update() {
         for (let i = 0; i < this.colliders.length; i++) {
             for (let j = i+1; j < this.colliders.length; j++) {

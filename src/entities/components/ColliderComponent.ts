@@ -20,6 +20,11 @@ export class ColliderComponent {
         
     }
 
+    renderDebug(ctx: CanvasRenderingContext2D) {
+        ctx.strokeStyle = "blue";
+        ctx.strokeRect(this.position.x, this.position.y, this.width, this.height);
+    }
+
     isCollidingWith(other: ColliderComponent): boolean {
         const a = this.bounds
         const b = other.bounds

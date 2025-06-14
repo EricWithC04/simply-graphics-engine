@@ -12,6 +12,8 @@ import { SpriteSheet } from "../graphics/SpriteSheet";
 
 import { CollisionSystem } from "../systems/CollisionSystem";
 
+const DEBUG_MODE = false
+
 export class GameScene implements IScene {
     private entities: Entity[] = [];
     private collisionSystem: CollisionSystem = new CollisionSystem()
@@ -53,10 +55,11 @@ export class GameScene implements IScene {
 
     update(dt: number): void {
         this.entities.forEach(entity => entity.update(dt))
-        this.collisionSystem.update()  
+        this.collisionSystem.update()
     }
-
+    
     render(ctx: CanvasRenderingContext2D): void {
         this.entities.forEach(entity => entity.render(ctx));
+        if (DEBUG_MODE) this.collisionSystem.renderDebug(ctx)
     }
 }
