@@ -11,6 +11,10 @@ export class Entity {
         return this
     }
 
+    getComponent<T extends Component>(componentClass: new (...args: any[]) => T): T | undefined {
+        return this.components.find(c => c instanceof componentClass) as T;
+    }
+
     update(delta: number): void {
         this.components.forEach(component => component.update?.(delta));
     }

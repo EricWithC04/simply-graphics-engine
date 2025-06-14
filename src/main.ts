@@ -6,7 +6,7 @@ import { GameScene } from "./scenes/GameScene";
 
 import { FPSCounter } from "./tools/FPSCounter";
 
-import { AssetLoader } from "./assets/AssetLoader";
+// import { AssetLoader } from "./assets/AssetLoader";
 
 const canvas = new Canvas(800, 600)
 const ctx = canvas.getContext();
@@ -26,8 +26,7 @@ const render = () => {
 };
 
 (async () => {
-    const playerSpriteSheet = await AssetLoader.loadImage("./tests/test-sprite-sheet.jpg")
-    const gameScene = new GameScene(playerSpriteSheet)
+    const gameScene = new GameScene([])
 
     sceneManager.changeScene(gameScene)
 })()

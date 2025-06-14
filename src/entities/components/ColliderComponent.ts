@@ -16,7 +16,7 @@ export class ColliderComponent {
         }
     }
 
-    update(delta: number) {
+    update(_delta: number) {
         
     }
 
